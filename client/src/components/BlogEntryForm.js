@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 // have a class for now in case we want to put in state
 
@@ -20,6 +21,13 @@ class BlogEntryForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state.blogPost);
+        Axios.post('http://localhost:8000/blog_post', {
+            'blog_post': this.state.blogPost
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     render() {

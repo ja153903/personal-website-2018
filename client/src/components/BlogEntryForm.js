@@ -4,18 +4,32 @@ import React, { Component } from 'react';
 
 class BlogEntryForm extends Component {
 
-    onSubmit = (e) => {
-        console.log(e.target.value);
+    constructor(props) {
+        super(props);
+        this.state = {
+            blogPost: ''
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            blogPost: e.target.value
+        });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.blogPost);
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <label>Write Below</label>
                 <div>
-                    <input type="text" />
+                    <input type="text" name="blog_post" onChange={this.handleChange} />
                 </div>
-                <input type="submit" value="Show the world"/>
+                <button>Show the world</button>
             </form>
         )
     }

@@ -12,9 +12,13 @@ class BlogEntryForm extends Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <label>Write Below</label>
-                <input type="text" />
+                <div>
+                    <input type="text" />
+                </div>
                 <input type="submit" value="Show the world"/>
             </form>
         )
     }
 }
+
+export default BlogEntryForm;

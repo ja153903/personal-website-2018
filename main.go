@@ -6,12 +6,20 @@ import (
 )
 
 
+type BlogPost struct {
+	BlogEntry string `json:"blog_post"`
+}
+
+
 func handleTextPost(router *gin.Engine) {
-	router.POST("/blog_post", func(context *gin.Context) {
-		blog_post := context.PostForm("blog_post")
+	router.POST("/blog_entry", func(context *gin.Context) {
+		var blogPost BlogPost
+
+		context.BindJSON(&blogPost)
+		
 		context.JSON(200, gin.H{
 			"status": "received",
-			"blog_post": blog_post,
+			"blog_post": blogPost.BlogEntry,
 		})
 	})
 }

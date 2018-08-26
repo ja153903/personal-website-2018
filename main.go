@@ -8,6 +8,7 @@ import (
 
 type BlogPost struct {
 	BlogEntry string `json:"blog_post"`
+	Date 	  string `json:"date"`
 }
 
 
@@ -20,7 +21,10 @@ func handleTextPost(router *gin.Engine) {
 		context.JSON(200, gin.H{
 			"status": "received",
 			"blog_post": blogPost.BlogEntry,
+			"date": blogPost.Date,
 		})
+
+		// at this point, we want to add the post to the table
 	})
 }
 

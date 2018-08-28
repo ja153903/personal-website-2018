@@ -15,11 +15,14 @@ type BlogPost struct {
 	Date 	  string `json:"date"`
 }
 
-func getTextPost(router *gin.Engine) {
-	router.GET("/api/blog_entry/get", func(context *gin.Context) {
+func getPosts(router *gin.Engine) {
+	router.GET("/api/blogposts", func(context *gin.Context) {
 		blogPosts := map[string]string{}
 
-		db, _ := sql.Open("mysql", "root:password@/blog")
+		db, err := sql.Open("mysql", "root:password@/blog")
+		if err != nil {
+			panic(err)
+		}
 		defer db.Close()
 
 		sqlQuery := `
@@ -48,34 +51,31 @@ func getTextPost(router *gin.Engine) {
 	})
 }
 
-func handleTextPost(router *gin.Engine) {
-	router.POST("/api/blog_entry/post", func(context *gin.Context) {
+func postPosts(router *gin.Engine) {
+	router.POST("/api/blogposts", func(context *gin.Context) {
 		var blogPost BlogPost
 
 		context.BindJSON(&blogPost)
-		
-		context.JSON(200, gin.H{
-			"status": "received",
-			"blog_post": blogPost.BlogEntry,
-			"date": blogPost.Date,
-		})
 
 		db, err := sql.Open("mysql", "root:password@/blog")
 		if err != nil {
 			panic(err)
 		}
-
 		defer db.Close()
 		
 		sqlQuery := `
 		INSERT INTO POSTS (blog_post, date_posted)
 		VALUES (?, ?)
 		`
-		_, err = db.Exec(sqlQuery, blogPost.BlogEntry, blogPost.Date)
-		if err != nil {
+		if _, err = db.Exec(sqlQuery, blogPost.BlogEntry, blogPost.Date); err != nil {
 			panic(err)
 		}
 
+		context.JSON(200, gin.H{
+			"status": "received",
+			"blog_post": blogPost.BlogEntry,
+			"date": blogPost.Date,
+		})
 	})
 }
 
@@ -83,8 +83,8 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	handleTextPost(router)
-	getTextPost(router)
+	postPosts(router)
+	getPosts(router)
 
 	router.Run(":8000")
 }

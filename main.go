@@ -51,7 +51,7 @@ func getPosts(router *gin.Engine) {
 	})
 }
 
-func handleTextPost(router *gin.Engine) {
+func postPosts(router *gin.Engine) {
 	router.POST("/api/blogposts", func(context *gin.Context) {
 		var blogPost BlogPost
 
@@ -83,8 +83,8 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	handleTextPost(router)
-	getTextPost(router)
+	postPosts(router)
+	getPosts(router)
 
 	router.Run(":8000")
 }

@@ -46,7 +46,7 @@ func getPosts(router *gin.Engine) {
 		
 		context.JSON(200, gin.H{
 			"status": "completed",
-			"data": blogPosts,
+			"posts": blogPosts,
 		})
 	})
 }

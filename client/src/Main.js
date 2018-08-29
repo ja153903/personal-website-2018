@@ -1,9 +1,13 @@
 import React from 'react';
 import BlogEntryForm from './components/BlogEntryForm';
+import BlogPosts from './components/BlogPosts';
 
 export default () => {
     return (
-        <BlogEntryForm />
+        <div>
+            <BlogEntryForm />
+            <BlogPosts />
+        </div>
     )
 }
 

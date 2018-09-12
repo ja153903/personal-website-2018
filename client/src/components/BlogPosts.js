@@ -21,14 +21,14 @@ class BlogPosts extends Component {
     }
 
     getData = async () => {
-        const data = await Axios.get('http://localhost:8000/api/blogposts');
+        const data = await Axios.get('http://localhost:5000/api/blogpost');
         return await data;
     }
 
     componentDidMount() {
         this.getData().then(payload => {
             this.setState({
-                posts: payload.data.posts
+                posts: payload.data
             });
         }).catch(err => {
             console.log(err);

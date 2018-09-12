@@ -21,7 +21,7 @@ class BlogEntryForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         // Keep the local env until we get the API hosted outside
-        Axios.post('http://localhost:8000/api/blogposts', {
+        Axios.post('http://localhost:5000/api/blogpost', {
             'blog_post': this.state.blogPost,
             'date': (new Date()).toString(),
         }).then(res => {

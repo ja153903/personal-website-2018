@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import _ from 'lodash';
+import { Markdown } from 'react-showdown';
 
 
+// Assume that the post we get will be in markdown
 const BlogPost = (props) => {
     return (
         <div>
-            <h2>{ props.date }</h2>
-            <p>{ props.post }</p>
+            <h1>{ props.date }</h1>
+            <Markdown markup={props.post} />
         </div>
     )
 }
